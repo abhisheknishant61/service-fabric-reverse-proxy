@@ -12,10 +12,10 @@ branches:
   - sridmad
 install:
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
-  - wget https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/docker-ce-cli_19.03.0~3-0~ubuntu-bionic_amd64.deb
+  - wget https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/docker-ce_19.03.0~3-0~ubuntu-bionic_amd64.deb
   - sudo apt-get purge -y docker.io
   - sudo apt-get autoclean
-  - sudo dpkg -i docker-ce-cli_19.03.0~3-0~ubuntu-bionic_amd64.deb
+  - sudo dpkg -i docker-ce_19.03.0~3-0~ubuntu-bionic_amd64.deb
 before_script:
   - chmod a+x ./deploycontainer.sh
   - mkdir -p ~/.docker/cli-plugins
