@@ -27,7 +27,7 @@ dotnet publish -c $config sfintegration -f netcoreapp2.1 -r ubuntu.16.04-x64 --s
 
 # Pull the previous image to speed up image generation
 docker pull $BRANCH/service-fabric-reverse-proxy:latest
-docker login -u {abhishek138} -p {abhishek138}
+docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD};
 # Build the Docker images
 echo docker build -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
 docker buildx build --push --platform linux/amd64,linux/arm64 -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
