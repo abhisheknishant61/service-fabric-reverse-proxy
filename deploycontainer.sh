@@ -27,20 +27,20 @@ dotnet publish -c $config sfintegration -f netcoreapp2.1 -r ubuntu.16.04-x64 --s
 
 # Pull the previous image to speed up image generation
 docker pull $BRANCH/service-fabric-reverse-proxy:latest
-
+docker login -u {abhishek138} -p {abhishek138}
 # Build the Docker images
 echo docker build -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
-docker buildx build --platform linux/amd64,linux/arm64 -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
-echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
-docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
-echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:latest
-docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:latest
+docker buildx build --push --platform linux/amd64,linux/arm64 -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
+#echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
+#docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
+#echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:latest
+#docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:latest
 
 # Login to Docker Hub and upload images
-echo $DOCKER_PASSWORD | docker login -u="$DOCKER_USERNAME" --password-stdin
-echo docker push $BRANCH/service-fabric-reverse-proxy:$TAG
-docker push $BRANCH/service-fabric-reverse-proxy:$TAG
-echo docker push $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
+#echo $DOCKER_PASSWORD | docker login -u="$DOCKER_USERNAME" --password-stdin
+#echo docker push $BRANCH/service-fabric-reverse-proxy:$TAG
+#docker push $BRANCH/service-fabric-reverse-proxy:$TAG
+#echo docker push $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
 docker push $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
 echo docker push $BRANCH/service-fabric-reverse-proxy:latest
 docker push $BRANCH/service-fabric-reverse-proxy:latest
