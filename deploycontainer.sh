@@ -30,7 +30,7 @@ docker pull $BRANCH/service-fabric-reverse-proxy:latest
 
 # Build the Docker images
 echo docker build -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
-docker build -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
+docker buildx build --platform linux/amd64,linux/arm64 -t $BRANCH/service-fabric-reverse-proxy:$TAG --label GIT_COMMIT=$GIT_COMMIT ./sfintegration/bin/$config/netcoreapp2.1/ubuntu.16.04-x64/publish/.
 echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
 docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:xenial-$TAG
 echo docker tag $BRANCH/service-fabric-reverse-proxy:$TAG $BRANCH/service-fabric-reverse-proxy:latest
