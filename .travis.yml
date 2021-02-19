@@ -3,9 +3,6 @@ language: csharp
 services:
   - docker
 os: linux
-arch:
-  - amd64
-  - arm64
 sudo: required
 mono: none
 dotnet: 2.1.402
